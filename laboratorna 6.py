@@ -57,7 +57,7 @@ students = {
         'Предмети': ["Чисельні методи", "Алгоритми та структури даних", "Програмування мовою Пайтон",
                      "Математичні методи дослідження операцій"],
         'Бали за семестр': [80, 90, 85, 97]
-    }
+    },
     "Ella Elloenko": {
         'Навчальна група': "КН-45",
         'Предмети': ["Чисельні методи", "Алгоритми та структури даних", "Програмування мовою Пайтон",
@@ -116,7 +116,25 @@ def add_students():
                     'Бали за семестр': marks
                 }
             print(f"Студента {student_id} додано до словника.")
+#функція середнього арифметичного, автор Шевченко О. ППМР1-105
+def calculate_group_average(data, target_group):
+    if target_group not in groups_list:
+        return f"Помилка: Група '{target_group}' не існує у системі."
 
+    total_marks_sum = 0
+    total_marks_count = 0
+
+    for student_name, info in data.items():
+        if info['Навчальна група'] == target_group:
+            marks_list = info['Бали за семестр']
+            total_marks_sum += sum(marks_list)
+            total_marks_count += len(marks_list)
+
+    if total_marks_count > 0:
+        average = total_marks_sum / total_marks_count
+        return f"Середній бал для групи {target_group}: {average:.2f}"
+    else:
+        return f"Студентів у групі {target_group} не знайдено."
 #перемикач, автор Кондратенко Р. ППМР1-104, доповнюється іншими студентами при доданні нових функцій
 choice = input("Введіть 1, щоб дописати студентів, 0 — щоб вивести дані, або 2 — щоб завершити: ")
 
@@ -142,7 +160,12 @@ elif choice == "0":
 
 elif choice == "2":
     print("Завершення програми.")
+elif choice == "4":
+    group_to_check = input("\nВведіть назву групи, для якої потрібно обчислити середній бал: ")
+    result = calculate_group_average(students, group_to_check)
+    print(result)
 
 else:
 
-    print("Введено неіснуюче число, введіть ще раз, тільки ввівши або 0, або 1, або 2.")
+    print("Введено неіснуюче число, введіть ще раз, тільки ввівши або 0, або 1, або 2, або 4.")
+
