@@ -116,6 +116,13 @@ def add_students():
                     'Бали за семестр': marks
                 }
             print(f"Студента {student_id} додано до словника.")
+# Функція сортування за групою, автор Гуменюк Андрій ППМР1-104
+def sort_students_by_group(students_dict):
+    items = students_dict.items() # Отримуємо пари (ключ, значення)
+    sorted_items = sorted(items, key=lambda x: x[1]['Навчальна група'])# Сортуємо за групою
+    sorted_students_dict = dict(sorted_items)# Створюємо новий відсортований словник
+    print("\nСловник студентів відсортовано за навчальною групою.")
+    return sorted_students_dict
 #функція середнього арифметичного, автор Шевченко О. ППМР1-105
 def calculate_group_average(data, target_group):
     if target_group not in groups_list:
@@ -136,7 +143,7 @@ def calculate_group_average(data, target_group):
     else:
         return f"Студентів у групі {target_group} не знайдено."
 #перемикач, автор Кондратенко Р. ППМР1-104, доповнюється іншими студентами при доданні нових функцій
-choice = input("Введіть 1, щоб дописати студентів, 0 — щоб вивести дані, або 2 — щоб завершити: ")
+choice = input("Введіть 1, щоб дописати студентів, 0 — щоб вивести дані, або 2 — щоб завершити, 3 - щоб сортувати за групою, 4 - щоб обчислити середній бал групи: ")
 
 if choice == "1":
     add_students()
@@ -160,6 +167,14 @@ elif choice == "0":
 
 elif choice == "2":
     print("Завершення програми.")
+elif choice == "3":
+    students = sort_students_by_group(students)
+    print("\nОновлений список студентів:")
+    for name, info in students.items():
+        print(f"\n {name}")
+        print(f"    Група: {info['Навчальна група']}")
+        print(f"    Предмети: {', '.join(info['Предмети'])}")
+        print(f"    Оцінки: {', '.join(map(str, info['Бали за семестр']))}")
 elif choice == "4":
     group_to_check = input("\nВведіть назву групи, для якої потрібно обчислити середній бал: ")
     result = calculate_group_average(students, group_to_check)
@@ -167,5 +182,6 @@ elif choice == "4":
 
 else:
 
-    print("Введено неіснуюче число, введіть ще раз, тільки ввівши або 0, або 1, або 2, або 4.")
+    print("Введено неіснуюче число, введіть ще раз, тільки ввівши або 0, або 1, або 2, або 3, або 4.")
+
 
