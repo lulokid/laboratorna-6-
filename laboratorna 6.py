@@ -55,6 +55,17 @@ def add_students():
                 }
             print(f"Студента {student_id} додано до словника.")
 
+def delete_students():
+    print("\nВведіть ім'я студента для видалення. Щоб завершити, напишіть 'стоп'.")
+    while True:
+        student_id = input("Ім’я студента для видалення: ")
+        if student_id.lower() == "стоп":
+            break
+        if student_id in students:
+            del students[student_id]
+            print(f"Студента {student_id} видалено.")
+        else:
+            print("Такий студент не навчається в жодній з існуючих груп.")
 
 choice = input("Введіть 1, щоб дописати студентів, 0 — щоб вивести дані, або 2 — щоб завершити: ")
 
@@ -81,5 +92,15 @@ elif choice == "0":
 elif choice == "2":
     print("Завершення програми.")
 
+elif choice == "3":
+    average_marks()
+    print("\nОновлений список студентів:")
+    for name, info in students.items():
+        print(f"\n {name}")
+        print(f"   Група: {info['Навчальна група']}")
+        print(f"   Предмети: {', '.join(info['Предмети'])}")
+        print(f"   Оцінки: {', '.join(map(str, info['Бали за семестр']))}")
+
 else:
+
     print("Введено неіснуюче число, введіть ще раз, тільки ввівши або 0, або 1, або 2.")
